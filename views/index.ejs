@@ -1,0 +1,28 @@
+<div id="home" data-role="page">
+  <div data-role="header" data-theme="b">
+	  <h1><%= title %></h1>
+  </div>
+
+  <div data-role="content">
+    <div data-role="fieldcontain">
+      <input type="search" name="query" id="search" value="" />
+    </div>
+
+    <!-- <p id="result"></p> -->
+    <img id="loader" src="/images/ajax-loader.gif" />
+
+    <ul data-role="listview" data-inset="true" id="results">
+    </ul>
+  </div>
+</div>
+
+<div id="asin" data-role="page">
+  <div data-role="header" data-theme="b">
+    <a data-rel="back" href="#home" data-icon="arrow-l">Back</a>
+    <h1></h1>
+  </div>
+  <div data-role="content" id="content">
+    <h2></h2>
+    <img src="" />
+  </div>
+</div>
