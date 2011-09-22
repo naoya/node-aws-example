@@ -45,9 +45,7 @@ class Amazon extends EventEmitter
       Title: query
       ItemPage: 1
       ResponseGroup: 'Medium'
-      _.bind (result) ->
-        @.emit 'response', result
-      , @
+      _( (result) -> @.emit 'response', result ).bind @
 
 confy.get 'ecs.amazonaws.jp', (err, config) ->
   io = require('socket.io').listen app
