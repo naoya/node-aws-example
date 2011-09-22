@@ -2,6 +2,7 @@ aws = require 'aws-lib'
 confy = require 'confy'
 express = require "express"
 EventEmitter = require('events').EventEmitter
+_ = require 'underscore'
 
 app = module.exports = express.createServer()
 
@@ -63,18 +64,12 @@ confy.get 'ecs.amazonaws.jp', (err, config) ->
 
     amazon.on 'response', (result) ->
       if result.Items.TotalResults > 0
-        items =
-          if parseInt(result.Items.TotalResults) == 1
-            new Array result.Items.Item
-          else
-            result.Items.Item
+        items = result.Items.Item
+        items = [ items ] if not _(items).isArray()
 
-        items = items.map (i) ->
-          asin: i.ASIN
-          title: i.ItemAttributes.Title
-          image: i.LargeImage?.URL
-
-        socket.emit 'items', items
+        socket.emit 'items', _(items).map (item) ->
+          asin: item.ASIN
+          title: item.ItemAttributes.Title
+          image: item.LargeImage?.URL
       else
         socket.emit 'items', []
-
