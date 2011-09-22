@@ -40,14 +40,14 @@ class Amazon extends EventEmitter
     )
 
   search: (query) ->
-    self = @
     @api.call "ItemSearch",
       SearchIndex: "Books"
       Title: query
       ItemPage: 1
       ResponseGroup: 'Medium'
-      (result) ->
-        self.emit 'response', result
+      _.bind (result) ->
+        @.emit 'response', result
+      , @
 
 confy.get 'ecs.amazonaws.jp', (err, config) ->
   io = require('socket.io').listen app
